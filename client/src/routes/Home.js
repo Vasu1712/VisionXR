@@ -11,23 +11,23 @@ const Home = () => {
         <div className="w-full h-full bg-royalblue flex flex-col md:flex-row">
             {/* left side */}
             <div className='bg-gradient-to-b from-lightblue to-deepblue w-full md:w-[46%] md:flex md:flex-col md:justify-center'>
-                <div className='m-4 md:m-10 w-1/3'>
+                <div className='m-4 md:m-10'>
                     <Link to="">
                         <img src={walmartLogo} alt='logo' />
                     </Link>
                 </div>
-                <div className='mt-4 md:ml-12 md:mt-64 w-full md:w-1/4 flex justify-center items-center'>
+                <div className='mt-4 md:ml-12 md:mt-64 w-full md:w-1/2 flex justify-center items-center'>
                     <img src={logoBig} alt='logo' />
                 </div>
             </div>
             {/* right side */}
             <div className='w-full md:w-[54%] p-4 md:p-8'>
-                <div className='mt-4 md:m-10 flex flex-row-reverse w-1/2'>
+                <div className='mt-4 md:m-10 flex flex-row-reverse'>
                     <Link to="">
                         <img src={VisionXR_Logo} alt='logo' />
                     </Link>
                 </div>
-                <div className='mt-4 md:ml-16 md:mt-32 w-1/2'>
+                <div className='mt-4 md:ml-16 md:mt-32'>
                     <img src={Sparkthon} alt='logo' />
                 </div>
                 <div className='mt-4 md:ml-16 md:mt-24 text-white font-extrabold text-4xl md:text-8xl tracking-wide font-sans'>
