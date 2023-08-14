@@ -8,6 +8,9 @@ import errorHandling from '@core/middlewares/errorHandling.middleware';
 import uniqueReqId from '@core/middlewares/uniqueReqId.middleware';
 import http404 from '@components/404/404.router';
 import swaggerApiDocs from '@components/swagger-ui/swagger.router';
+import db from '@db';
+
+db.connect();
 
 const app: Application = express();
 
