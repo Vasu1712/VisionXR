@@ -23,9 +23,7 @@ const Home = () => {
             {/* right side */}
             <div className=' w-[54%]'>
                 <div className='m-10 flex flex-row-reverse'>
-                        <Link to="">
                             <img src={VisionXR_Logo} alt='logo' />
-                        </Link>
                 </div>
                 <div className='ml-16 mt-32'>
                     <img src={Sparkthon} alt='logo' />
@@ -42,8 +40,8 @@ const Home = () => {
                 <div className='mt-28 flex justify-center'>
                         <Link to="/formpage">
                             <div className='px-6 py-2 text-white font-medium text-xl border-2 border-white rounded-2xl flex drop-shadow-lg hover:bg-blue1'>
-                            Get Started with 3D! 
-                            <Icon icon="mingcute:arrow-right-fill" color="white" className='ml-4 mt-1' />
+                            Get Started with 3D
+                            <Icon icon="formkit:submit" color="white" className='ml-4 mt-1' />
                             </div>
                         </Link>
                         

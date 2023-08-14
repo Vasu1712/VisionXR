@@ -23,9 +23,11 @@ const FormPage = () => {
                 <div className='m-10 w-3/5'>
                     {/* form */}
                     <div className='inputRegion w-full p-10 flex items-center justify-center flex-col bg-glass rounded-2xl backdrop-blur border '>
+                        <Link to='/ecommerce' >
                         <div className='font-bold mb-4'>
                             <img src={Logo_black} alt="VisionXR" />
                         </div>
+                        </Link>
                         <TextInput
                             label=''
                             placeholder='Email address'

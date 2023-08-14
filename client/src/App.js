@@ -3,6 +3,8 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import FormPage from './routes/FormPage.js';
 import Home from './routes/Home.js';
+import Ecommerce from './routes/Ecommerce';
+
 
 function App() {
   return (
@@ -16,6 +18,10 @@ function App() {
           <Route
             path='/formpage'
             element=<FormPage />
+          />
+          <Route
+            path='/ecommerce'
+            element=<Ecommerce />
           />
         </Routes>
       </BrowserRouter>
