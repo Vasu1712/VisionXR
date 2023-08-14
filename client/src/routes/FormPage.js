@@ -11,7 +11,7 @@ const FormPage = () => {
         <div className="w-full h-full bg-gradient-to-b from-lightblue to-deepblue flex">
             {/* left side */}
             <div className='w-1/2'>
-                <div className='m-12 font-black text-5xl text-yelloe'>
+                <div className='m-12 font-extrabold text-5xl text-yelloe font-sans'>
                     ApeXR
                 </div>
                 <div className='mt-28 ml-8'>

@@ -11,10 +11,8 @@ const Home = () => {
         <div className="w-full h-full bg-royalblue flex">
             {/* left side */}
             <div className='bg-gradient-to-b from-lightblue to-deepblue w-[46%]'>
-                <div className='m-10'>
-                        <Link to="">
-                            <img src={walmartLogo} alt='logo' />
-                        </Link>
+                <div className='m-12 font-extrabold text-5xl text-yelloe font-sans'>
+                    ApeXR
                 </div>
                 <div className='ml-40 mt-64 w-1/2 flex justify-center items-center'>
                       <img src={logoBig} alt='logo' />
