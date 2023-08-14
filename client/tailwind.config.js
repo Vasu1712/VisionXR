@@ -24,6 +24,8 @@ module.exports = {
         grey: "#B8C2C9",
         blue1: "#0174F0",
         blue2: "#0499F8",
+        glass: "#7eafeb",
+        colorf: "#ffffff26",
       }
     },
   },
