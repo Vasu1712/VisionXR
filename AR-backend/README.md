@@ -48,7 +48,7 @@ npm run server:dev
 
 ## How to work with the AR-Backend
 
-There are few rules that you have to obey to enjoy NET.ts fully.
+There are few rules that you have to obey .
 
 1. Enviromment variables - define your envs in `.env.local` file and provide validation rules for them inside `@config/config.ts` file.
 2. Structure your solution by components.
@@ -63,7 +63,7 @@ The Jest test suites are run by executing
 npm test
 ```
 
-To run tests directly insiide of the NET.ts container:
+To run tests directly inside of the Backend container:
 
 ```sh
 docker-compose run web npm run test
