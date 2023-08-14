@@ -27,42 +27,5 @@
         }
       }
     }
-  },
-  "definitions": {
-    "Input": {
-      "required": ["input"],
-      "properties": {
-        "input": {
-          "type": "object",
-          "$ref": "#/definitions/InputBody"
-        }
-      }
-    },
-    "UserInput": {
-      "required": ["name", "email"],
-      "properties": {
-        "name": {
-          "type": "string",
-          "default": "John Doe"
-        },
-        "email": {
-          "type": "string",
-          "default": "john.d@example.net"
-        }
-      }
-    },
-    "ResponseWithMessage": {
-      "type": "object",
-      "properties": {
-        "message": {
-          "type": "string"
-        }
-      }
-    },
-    "x-api-key": {
-      "type": "apiKey",
-      "name": "x-api-key",
-      "in": "header"
-    }
   }
 }
