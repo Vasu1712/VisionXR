@@ -1,4 +1,3 @@
-import walmartLogo from '../assets/images/Walmart.png';
 import logoBig from '../assets/images/logoBig.png';
 import Name from '../assets/images/Name.png';
 import VisionXR_Logo from '../assets/images/VisionXR_Logo.png';
@@ -21,7 +20,9 @@ const Home = () => {
             {/* right side */}
             <div className=' w-[54%]'>
                 <div className='m-10 flex flex-row-reverse'>
-                            <img src={VisionXR_Logo} alt='logo' />
+                <Link to='/ecommerce' > 
+                    <img src={VisionXR_Logo} alt='logo' />
+                </Link>
                 </div>
                 <div className='ml-16 mt-32'>
                     <img src={Sparkthon} alt='logo' />

@@ -10,9 +10,9 @@ const TextInput = ({ label, placeholder, value, setValue }) => {
                 className="text-xl p-3 border border-solid border-deepblue bg-glass rounded placeholder-deepblue"
                 id={label}
                 value={value}
-                onChange={(e) => {
-                    setValue(e.target.value);
-                }}
+                // onChange={(e) => {
+                //     setValue(e.target.value);
+                // }}
             />
         </div>
     );

@@ -5,11 +5,30 @@ import { Link } from "react-router-dom";
 import { Icon } from '@iconify/react';
 
 const Ecommerce = () => {
+
+    const handleFormSubmit = () => {
+        // Handle form submission logic here
+        
+        // Display a success alert
+        alert('Loading AR Content...');
+    };
+
     return (
         <div className="w-full h-full p-4 bg-gradient-to-b from-lightblue to-deepblue">
-                <div className='ml-2 mt-4 font-black text-5xl text-yelloe'>
+                <div className='ml-2 mt-4 font-mid flex justify-between'>
                     <img src={Logo_black} alt="logo" />
-                </div>
+                <label className="relative block w-1/6 mr-28">
+                        <span className="absolute ml-10 mt-2 text-xl flex items-center pl-2 ">
+                        <Icon icon="teenyicons:search-outline" color="white" />
+                        </span>
+                        <input
+                            className="placeholder-italic placeholder-white ml-8 placeholder-text-xl block bg-inherit w-full border border-white rounded-3xl py-2 pl-9 pr-3 shadow-sm focus:outline-none focus:border-sky-500 focus:ring-sky-500 focus:ring-1 sm:text-sm"
+                            placeholder="   Search for any product..."
+                            type="text"
+                            name="search"
+                        />
+                    </label>
+                    </div>
                 <div className="mt-10 flex justify-center font-black text-6xl text-white tracking-wide	">
                     ShopXR
                 </div>
@@ -42,6 +61,7 @@ const Ecommerce = () => {
                     <div className='mt-10'>
                         <Link
                             to='/submit'
+                            onClick={handleFormSubmit}
                             className='text-white w-60 mt-8 bg-gradient-to-r from-blue1 to-blue2 hover:border border-white w-2/3 flex items-center justify-center py-4 rounded-xl text-xl font-bold'>
                             <div className="flex">Buy Product
                             <Icon icon="icons8:buy" color="white" className='ml-4' width="30" height="30"/>
