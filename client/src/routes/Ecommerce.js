@@ -1,8 +1,7 @@
 import Logo_black from '../assets/images/Logo_black.png';
-import VisionXR_Logo from '../assets/images/VisionXR_Logo.png';
-import Drone from '../assets/images/drone.jpg';
 import { Link } from "react-router-dom";
 import { Icon } from '@iconify/react';
+import Drone3D from '../components/Drone';
 
 const Ecommerce = () => {
 
@@ -34,10 +33,11 @@ const Ecommerce = () => {
                 </div>
             <div className='w-full ml-8 flex flex-row'>
                 {/* left side */}
-                <div className='w-1/2'>
-                    <div className='mt-28 ml-20 w-2/3'>
-                        <img src={Drone} alt="logoBig" className="rounded-xl"/>
-                    </div>
+                <div className='w-1/2 p-8'>
+                    {/* <div className='mt-36 ml-20 w-3/4'> */}
+                        {/* <img src={Drone} alt="logoBig" className="rounded-xl"/> */}
+                        <Drone3D/>
+                    {/* </div> */}
                 </div>
                 {/* right side */}
                 <div className=' w-1/2 flex flex-col'>
