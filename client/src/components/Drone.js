@@ -8,7 +8,7 @@ const Model = () => {
   const gltf = useLoader(GLTFLoader, "./drone.gltf");
   return (
     <>
-      <primitive object={gltf.scene} scale={0.8} />
+      <primitive object={gltf.scene} scale={0.98} />
     </>
   );
 };
@@ -16,7 +16,7 @@ const Model = () => {
 export default function Drone3D() {
   return (
     <div className="relative w-full h-full">
-      <Canvas className="w-full h-full">
+      <Canvas className="w-full h-96">
         <Suspense fallback={null}>
           <Model />
           <OrbitControls />
