@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>VisionXR</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=no"
+    />
+    <!-- <link rel="icon" href="textures/fanisko_favicon.ico" type="image/x-icon" /> -->
+    <link type="text/css" rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <script type="module">
+      import * as THREE from "./build/three.module.js";
+      import { ARButton } from "./jsm/webxr/ARButton.js";
+      import { GLTFLoader } from "./jsm/loaders/GLTFLoader.js";
+      import { DRACOLoader } from "./jsm/loaders/DRACOLoader.js";
+
+      // Replace metadata_urls.csv
+      // Replace the link of collection
+      let container;
+      let camera, scene, renderer;
+      let controller;
+      let plane;
+      let reticle;
+
+      let hitTestSource = null;
+      let hitTestSourceRequested = false;
+
+      let model;
+      let gltfModel;
+      let mixer = null;
+
+      let clock = new THREE.Clock();
+      let previousTime = 0;
+
+      const stepwiseClips = {};
+      const stepwiseActions = {};
+      const buttons = [];
+
+      const regex = /^(Step\d)/;
+
+      init();
+      animate();
+
+      function stopAllActions() {
+        for (let i = 0; i < Object.keys(stepwiseActions).length; i++) {
+          for (
+            let j = 0;
+            j < stepwiseActions[Object.keys(stepwiseClips)[i]].length;
+            j++
+          ) {
+            stepwiseActions[Object.keys(stepwiseClips)[i]][j].stop();
+          }
+        }
+      }
+
+      function make100SmallerSteps(pos) {
+        for (let i = 0; i < pos; i++) {
+          const arr = stepwiseActions[Object.keys(stepwiseClips)[i]];
+          for (let j = 0; j < arr.length; j++) {
+            // play the animation
+            arr[j].play();
+            arr[j].timeScale = 100;
+            arr[j].setLoop(THREE.LoopOnce);
+            arr[j].clampWhenFinished = true;
+          }
+        }
+      }
+
+      function init() {
+        container = document.createElement("div");
+        document.body.appendChild(container);
+
+        scene = new THREE.Scene();
+
+        camera = new THREE.PerspectiveCamera(
+          70,
+          window.innerWidth / window.innerHeight,
+          0.01,
+          20
+        );
+        let group = new THREE.Group();
+
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.xr.enabled = true;
+        container.appendChild(renderer.domElement);
+
+        // nextButton.style.display = "none";
+
+        // make nextButton visible
+
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath("draco/");
+        const loadingManager = new THREE.LoadingManager();
+
+        const gltfLoader = new GLTFLoader(loadingManager);
+        gltfLoader.setDRACOLoader(dracoLoader);
+
+        const geometry = new THREE.CylinderGeometry(
+          0.1,
+          0.1,
+          0.2,
+          32
+        ).translate(0, 0.1, 0);
+
+        gltfLoader.load("Bir4.gltf", function (gltf) {
+          gltfModel = gltf;
+          model = gltf.scene;
+          console.log(gltf);
+          console.log(model);
+          // Iterate through animations
+          mixer = new THREE.AnimationMixer(model);
+          // Reduce the speed of animation
+
+          mixer.timeScale = 1;
+
+          gltfModel.animations.forEach((clip) => {
+            // const animation = mixer.clipAction(clip);
+            // console.log(animation);
+
+            let str = clip.name;
+
+            const match = str.match(regex);
+            if (match) {
+              let prefix = match[1]; // Get the prefix from the regex match
+              // extract only the last digit from the prefix
+              prefix = prefix.slice(-1);
+              if (!stepwiseClips[prefix]) {
+                stepwiseClips[prefix] = [];
+              }
+              // console.log(str);
+              stepwiseClips[prefix].push(clip);
+            }
+          });
+          // length of stepwiseClips
+          console.log(Object.keys(stepwiseClips).length);
+          // traverse through stepwiseClips
+          for (let i = 0; i < Object.keys(stepwiseClips).length; i++) {
+            // console.log(stepwiseClips[Object.keys(stepwiseClips)[i]]);
+            const arr = stepwiseClips[Object.keys(stepwiseClips)[i]];
+            stepwiseActions[Object.keys(stepwiseClips)[i]] = [];
+            for (let j = 0; j < arr.length; j++) {
+              const action = mixer.clipAction(arr[j]);
+              stepwiseActions[Object.keys(stepwiseClips)[i]].push(action);
+            }
+          }
+          console.log(stepwiseClips);
+          console.log(stepwiseActions);
+
+          for (let i = 0; i < Object.keys(stepwiseClips).length; i++) {
+            const btn = document.createElement("button");
+            btn.innerHTML = "Step " + Object.keys(stepwiseClips)[i];
+            btn.id = "btn" + Object.keys(stepwiseClips)[i];
+            btn.style.position = "absolute";
+            btn.style.top = "0px";
+            btn.style.left = `${i * 100}px`;
+            // btn.style.zIndex = "100";
+            // btn.style.backgroundColor = "black";
+            // btn.style.color = "white";
+            btn.style.border = "none";
+            btn.style.padding = "10px";
+            btn.style.fontSize = "16px";
+            // btn.style.cursor = "pointer";
+            btn.style.display = "none";
+            // width and height
+            // btn.style.width = "100px";
+            // btn.style.height = "50px";
+            btn.addEventListener("click", () => {
+              // console.log("helllllllllllllllllllllloo");
+              // console.log(stepwiseActions[Object.keys(stepwiseClips)[i]]);
+              stopAllActions();
+              make100SmallerSteps(i);
+              for (
+                let j = 0;
+                j < stepwiseActions[Object.keys(stepwiseClips)[i]].length;
+                j++
+              ) {
+                stepwiseActions[Object.keys(stepwiseClips)[i]][j].play();
+              }
+            });
+            document.body.appendChild(btn);
+            buttons.push(btn);
+          }
+
+          model.scale.set(0.03, 0.03, 0.03);
+          model.position.set(0, 0, 0);
+        });
+        var button;
+
+        // Create buttons based on the length of stepwiseClips object
+
+        let options = {
+          requiredFeatures: ["hit-test"],
+          optionalFeatures: ["dom-overlay"],
+          domOverlay: { root: document.body },
+        };
+
+        const areaLight = new THREE.RectAreaLight(0xffffff, 3, 3, 3);
+        areaLight.position.set(0, 5, 0);
+        areaLight.lookAt(0, 0, 0);
+        // scene.add(areaLight);
+
+        loadingManager.onLoad = () => {
+          button = ARButton.createButton(renderer, options);
+          button.style.backgroundColor = "black";
+          // button.style.zIndex;
+          document.body.appendChild(button);
+        };
+
+        function arPlace() {
+          if (reticle.visible) {
+            model.position.setFromMatrixPosition(reticle.matrix);
+            model.translateY(0.05);
+            areaLight.position.setFromMatrixPosition(reticle.matrix);
+            areaLight.position.y += 0.5;
+            // light.position.setFromMatrixPosition(reticle.matrix);
+            scene.add(model);
+            scene.add(areaLight);
+
+            buttons.forEach((btn) => {
+              btn.style.display = "block";
+            });
+          }
+        }
+
+        reticle = new THREE.Mesh(
+          new THREE.RingGeometry(0.18, 0.2, 32).rotateX(-Math.PI / 2),
+          new THREE.MeshBasicMaterial()
+        );
+        reticle.matrixAutoUpdate = false;
+        reticle.visible = false;
+        scene.add(reticle);
+        document.addEventListener("click", arPlace);
+
+        window.addEventListener("resize", onWindowResize);
+      }
+
+      function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      }
+      let j = 0;
+
+      //
+
+      function animate() {
+        renderer.setAnimationLoop(render);
+      }
+
+      // let deltaTime = 0;
+
+      function render(timestamp, frame) {
+        const elapsedTime = clock.getElapsedTime();
+        const deltaTime = elapsedTime - previousTime;
+        previousTime = elapsedTime;
+        if (frame) {
+          const referenceSpace = renderer.xr.getReferenceSpace();
+          const session = renderer.xr.getSession();
+
+          if (hitTestSourceRequested === false) {
+            session
+              .requestReferenceSpace("viewer")
+              .then(function (referenceSpace) {
+                session
+                  .requestHitTestSource({ space: referenceSpace })
+                  .then(function (source) {
+                    hitTestSource = source;
+                  });
+              });
+
+            session.addEventListener("end", function () {
+              hitTestSourceRequested = false;
+              hitTestSource = null;
+            });
+
+            hitTestSourceRequested = true;
+          }
+
+          if (hitTestSource) {
+            const hitTestResults = frame.getHitTestResults(hitTestSource);
+
+            if (hitTestResults.length) {
+              const hit = hitTestResults[0];
+
+              reticle.visible = true;
+
+              reticle.matrix.fromArray(
+                hit.getPose(referenceSpace).transform.matrix
+              );
+            } else {
+              reticle.visible = false;
+            }
+          }
+        }
+        if (mixer) {
+          mixer.update(deltaTime);
+        }
+        renderer.render(scene, camera);
+      }
+    </script>
+  </body>
+</html>
