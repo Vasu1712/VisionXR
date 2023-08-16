@@ -5,10 +5,10 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Suspense } from "react";
 
 const Model = () => {
-  const gltf = useLoader(GLTFLoader, "./drone.gltf");
+  const gltf = useLoader(GLTFLoader, "./dronefinal.gltf");
   return (
     <>
-      <primitive object={gltf.scene} scale={0.98} />
+      <primitive object={gltf.scene} scale={0.8} />
     </>
   );
 };
@@ -16,7 +16,7 @@ const Model = () => {
 export default function Drone3D() {
   return (
     <div className="relative w-full h-full">
-      <Canvas className="w-full h-96">
+      <Canvas className="w-full">
         <Suspense fallback={null}>
           <Model />
           <OrbitControls />

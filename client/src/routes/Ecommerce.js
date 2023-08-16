@@ -33,7 +33,7 @@ const Ecommerce = () => {
                 </div>
             <div className='w-full sm:h-1/2 ml-4 sm:ml-8 sm:flex flex-row justify-center '>
                 {/* left side */}
-                <div className='sm:w-1/2 sm:mt-32 sm:h-5/6 sm:mr-8 sm:px-6 mr-8 h-64 p-4'>
+                <div className='sm:w-1/2 sm:mt-32 sm:h-96 sm:mr-8 sm:px-6 mr-8 h-64 p-4'>
                     {/* <div className='mt-36 ml-20 w-3/4'> */}
                         {/* <img src={Drone} alt="logoBig" className="rounded-xl"/> */}
                         <Drone3D/>
