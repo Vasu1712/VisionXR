@@ -98,6 +98,24 @@ const Ecommerce = () => {
                               <li><span className="font-semibold">Warranty</span>: <span className="italic ml-16">24 months</span></li>
                         </div>    
                     </div>
+                    <div className='mt-4 sm:mt-10'>
+                        <div className='m-2 text-search flex flex-row sm:mt-8 sm:ml-2 sm:font-thin sm:text-xl text-zinc-300'>
+                        <Icon icon="la:shipping-fast" color='black' className="text-xl"/>
+                        <h3 className="font-light ml-4 text-base sm:text-xl text-black">Free Shipping, <span className="font-bold">arrives by Wed, Aug 30</span></h3>
+                        </div>
+                        <div className='m-2 text-search flex flex-row sm:mt-8 sm:ml-2 sm:font-thin sm:text-xl text-zinc-300'>
+                        <Icon icon="ic:outline-add-business" color='black' className="text-xl"/>
+                        <h3 className="font-light flex flex-row ml-4 text-base sm:text-xl text-black">Sold by, <span className="font-bold ml-1"> BIR Drone Company</span> 
+                        <Icon icon="material-symbols:verified-outline" color="#0171dc" />
+                        </h3>
+                        </div>
+                        <div className='m-2 text-search flex flex-row sm:mt-8 sm:ml-2 sm:font-thin sm:text-xl text-zinc-300'>
+                        <Icon icon="ic:round-replay-circle-filled" color="#0171dc" className="text-xl" />  <span className="font-base ml-4 text-black text-base"> Free 30-day return policy</span>
+                        </div> 
+                    </div>
+                    <div className='mt-8 sm:mt-10'>
+                        <h3 className="font-medium text-lg sm:text-2xl text-black">Similar Items you might like</h3>   
+                    </div>
                     <div className='flex flex-row fixed bottom-0 left-0 right-0 p-4 sm:mt-10'>
                         <Link
                             to='/submit'
